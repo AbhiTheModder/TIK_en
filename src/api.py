@@ -86,7 +86,7 @@ class dirsize(object):
     @staticmethod
     def rsizelist(dname, size, file):
         if os.access(file, os.F_OK):
-            print("调整%s大小为%s" % (dname, size))
+            print("Adjust%s size to%s" % (dname, size))
             with open(file, 'r', encoding='utf-8') as f:
                 content = f.read()
             with open(file, 'w', encoding='utf-8', newline='\n') as ff:

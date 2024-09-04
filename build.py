@@ -1,3 +1,17 @@
+# /// script
+# requires-python = ">=3.12"
+# dependencies = [
+#     "requests<3",
+#     "rich",
+#     "extract-dtb",
+#     "pyinstaller",
+#     "pycryptodome",
+#     "lxml",
+#     "zstandard",
+#     "protobuf>=5",
+#     "pip",
+# ]
+# ///
 import os
 import platform
 import shutil
@@ -5,19 +19,19 @@ import zipfile
 
 from src import banner
 
-print(f'\033[31m {banner.banner1} \033[0m')
-print(f'Build for {platform.system()}')
+print(f"\033[31m {banner.banner1} \033[0m")
+print(f"Build for {platform.system()}")
 from pip._internal.cli.main import main as _main
 
-with open('requirements.txt', 'r', encoding='utf-8') as l:
+with open("requirements.txt", "r", encoding="utf-8") as l:
     for i in l.read().split("\n"):
         print(f"Installing {i}")
-        _main(['install', i])
+        _main(["install", i])
 local = os.getcwd()
-if platform.system() == 'Linux':
-    name = 'TIK-linux.zip'
+if platform.system() == "Linux":
+    name = "TIK-linux.zip"
 else:
-    name = 'TIK-win.zip'
+    name = "TIK-win.zip"
 
 
 def zip_folder(folder_path):
@@ -49,28 +63,33 @@ def zip_folder(folder_path):
 
 import PyInstaller.__main__
 
-PyInstaller.__main__.run(['-F', 'run.py', '--exclude-module=numpy', '-i', 'icon.ico'])
+PyInstaller.__main__.run(["-F", "run.py", "--exclude-module=numpy", "-i", "icon.ico"])
 
-if os.name == 'nt':
-    if os.path.exists(local + "/dist/run.exe"):
-        shutil.move(local + "/dist/run.exe", local)
-    if os.path.exists(local + "/bin/Linux"):
-        shutil.rmtree(local + "/bin/Linux")
-    if os.path.exists(local + "/bin/Android"):
-        shutil.rmtree(local + "/bin/Android")
-    if os.path.exists(local + "/bin/Darwin"):
-        shutil.rmtree(local + "/bin/Darwin")
-elif os.name == 'posix':
-    if os.path.exists(local + "/dist/run"):
-        shutil.move(local + "/dist/run", local)
-    if os.path.exists(local + "/bin/Windows"):
-        shutil.rmtree(local + "/bin/Windows")
-    for i in os.listdir(local + "/bin/Linux"):
+if os.name == "nt":
+    if os.path.exists(local + os.sep + "dist" + os.sep + "run.exe"):
+        shutil.move(local + os.sep + "dist" + os.sep + "run.exe", local)
+    if os.path.exists(local + os.sep + "bin" + os.sep + "Linux"):
+        shutil.rmtree(local + os.sep + "bin" + os.sep + "Linux")
+    if os.path.exists(local + os.sep + "bin" + os.sep + "Android"):
+        shutil.rmtree(local + os.sep + "bin" + os.sep + "Android")
+    if os.path.exists(local + os.sep + "bin" + os.sep + "Darwin"):
+        shutil.rmtree(local + os.sep + "bin" + os.sep + "Darwin")
+elif os.name == "posix":
+    if os.path.exists(local + os.sep + "dist" + os.sep + "run"):
+        shutil.move(local + os.sep + "dist" + os.sep + "run", local)
+    if os.path.exists(local + os.sep + "bin" + os.sep + "Windows"):
+        shutil.rmtree(local + os.sep + "bin" + os.sep + "Windows")
+    for i in os.listdir(local + os.sep + "bin" + os.sep + "Linux"):
         if i == platform.machine():
             continue
         shutil.rmtree(local + "/bin/Linux/" + i)
 for i in os.listdir(local):
-    if i not in ['run', 'run.exe', 'bin', 'LICENSE'] and not i.endswith(".py") and not i.endswith(".ico") and not i.endswith(".txt"):
+    if (
+        i not in ["run", "run.exe", "bin", "LICENSE"]
+        and not i.endswith(".py")
+        and not i.endswith(".ico")
+        and not i.endswith(".txt")
+    ):
         print(f"Removing {i}")
         if os.path.isdir(local + os.sep + i):
             try:
@@ -84,7 +103,7 @@ for i in os.listdir(local):
                 print(e)
     else:
         print(i)
-if os.name == 'posix':
+if os.name == "posix":
     for root, dirs, files in os.walk(local, topdown=True):
         for i in files:
             print(f"Chmod {os.path.join(root, i)}")
