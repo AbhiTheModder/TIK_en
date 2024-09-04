@@ -76,7 +76,7 @@ jobs:
       - name: Install Packages
         run: |
             python3 -m pip install -U --force-reinstall pip
-            sudo apt update -y && sudo apt install python3-tk -y
+            sudo apt update -y && sudo apt install python3-tk android-sdk-libsparse-utils -y
       - name: Build Tool
         run: |
              python3 build.py
