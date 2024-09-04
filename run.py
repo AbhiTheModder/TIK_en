@@ -819,6 +819,7 @@ class Tool:
         directory = LOCALDIR + os.sep + self.pro
         if not os.path.exists(directory):
             print(f"No such file or directory: {directory}")
+            time.sleep(2)
             self.custom_rom()
             return
         os.chdir(directory)
@@ -827,6 +828,7 @@ class Tool:
         files = glob.glob("super.img*[0-9]")
         if not files:
             print(f".....there is no files for merging in {directory}")
+            time.sleep(2)
             self.custom_rom()
             return
 
@@ -852,15 +854,18 @@ class Tool:
             if result.returncode == 0:
                 print(".....Successfully created file super_chunk.raw.img")
                 print(f".....Saved in {directory}/TI_out")
+                time.sleep(2)
                 self.custom_rom()
                 return
             else:
                 print(".....Error when merging super_chunk.raw.img!")
                 print(result.stderr)
+                time.sleep(2)
                 self.custom_rom()
                 return
         else:
-            print('.....Files found "*sparsechunk*"')
+            print('.....No Files found "*sparsechunk*"')
+            time.sleep(2)
             self.custom_rom()
             return
 
