@@ -1,5 +1,10 @@
 ## TIK
 
+> [!NOTE]
+> This is a fork of the ColdWindScholar TIK Repo, which is available at [ColdWindScholar/TIK](https://github.com/ColdWindScholar/TIK), due to him deleting the repo a while ago this fork became a standalone repository.
+> Plus recently the original repo has been restored along with english translations (which was another main cause for this repo), so this fork may be archived and no longer maintained.
+> The only thing this repo differs from the original is the addition of merge `*sparsechunk*` images into a single `system.img` file, which is not present in the original repo, and i'm not confident enough to make a PR to the original repo.
+
 #### **Introduction**
 
 > [!CAUTION]
